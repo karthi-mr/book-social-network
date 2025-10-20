@@ -28,7 +28,7 @@ public class BookController {
         return ok(this.bookService.saveBook(bookRequest, connectedUser));
     }
 
-    @GetMapping("{book-id}")
+    @GetMapping("/{book-id}")
     public ResponseEntity<BookResponse> findBookById(
             @PathVariable("book-id") Integer bookId
     ) {
@@ -44,7 +44,7 @@ public class BookController {
         return ok(this.bookService.findAllBooks(page, size, connectedUser));
     }
 
-    @GetMapping("owner")
+    @GetMapping("/owner")
     public ResponseEntity<PageResponse<BookResponse>> findAllBooksByOwner(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
@@ -53,7 +53,7 @@ public class BookController {
         return ok(this.bookService.findAllBooksByOwner(page, size, connectedUser));
     }
 
-    @GetMapping("borrowed")
+    @GetMapping("/borrowed")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooks(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
@@ -62,12 +62,28 @@ public class BookController {
         return ok(this.bookService.findAllBorrowedBooks(page, size, connectedUser));
     }
 
-    @GetMapping("returned")
+    @GetMapping("/returned")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllReturnedBooks(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
             Authentication connectedUser
     ) {
         return ok(this.bookService.findAllReturnedBooks(page, size, connectedUser));
+    }
+
+    @PatchMapping("/shareable/{book-id}")
+    public ResponseEntity<Integer> updateShareableStatus(
+            @PathVariable("book-id") Integer bookId,
+            Authentication connectUser
+    ) {
+        return ok(this.bookService.updateShareableStatus(bookId, connectUser));
+    }
+
+    @PatchMapping("/archived/{book-id}")
+    public ResponseEntity<Integer> updateArchivedStatus(
+            @PathVariable("book-id") Integer bookId,
+            Authentication connectUser
+    ) {
+        return ok(this.bookService.updateArchivedStatus(bookId, connectUser));
     }
 }
