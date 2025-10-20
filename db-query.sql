@@ -5,3 +5,5 @@ SELECT * FROM role;
 SELECT * FROM token;
 
 SELECT * FROM _user_roles;
+
+UPDATE _user SET enabled = true WHERE id = 1;
