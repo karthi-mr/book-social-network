@@ -36,4 +36,11 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(this.authService.authenticate(authRequest));
     }
+
+    @GetMapping("/activate-account")
+    public void activateAccount(
+            @RequestParam String token
+    ) throws MessagingException {
+        this.authService.activateAccount(token);
+    }
 }
