@@ -23,7 +23,12 @@
   <!-- card footer -->
   <div class="card-footer d-flex gap-2 justify-content-between">
     <div class="d-flex gap-2">
-      5 stars
+      <app-rating [rating]="book.rate || 0" />
+      @if (book.rate || 0 > 0 ) {
+        <span class="fw-bold">
+          {{book.rate}}
+        </span>
+      }
     </div>
 
     @if (!manage) {
