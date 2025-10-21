@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
 import {MainComponent} from './components/main-component/main-component';
 import {BookListComponent} from './components/book-list-component/book-list-component';
+import {MyBooks} from './components/my-books/my-books';
 
 export const bookRoutes: Routes = [
   {
@@ -13,7 +14,7 @@ export const bookRoutes: Routes = [
       },
       {
         path: 'my-books',
-        component: MainComponent
+        component: MyBooks
       }
     ]
   }

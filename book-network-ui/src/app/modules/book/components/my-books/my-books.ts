@@ -1,26 +1,25 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiConfiguration} from '../../../../services/api-configuration';
-import {borrowBook, findAllBooks} from '../../../../services/functions';
-import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {PageResponseBookResponse} from '../../../../services/models/page-response-book-response';
 import {BookCard} from '../book-card/book-card';
+import {PageResponseBookResponse} from '../../../../services/models/page-response-book-response';
+import {ApiConfiguration} from '../../../../services/api-configuration';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {findAllBooksByOwner} from '../../../../services/functions';
+import {RouterLink} from '@angular/router';
 import {BookResponse} from '../../../../services/models/book-response';
-import {MessageLevel} from '../../../../utils/message-level';
 
 @Component({
-  selector: 'app-book-list-component',
+  selector: 'app-my-books',
   imports: [
-    BookCard
+    BookCard,
+    RouterLink
   ],
-  templateUrl: './book-list-component.html',
-  styleUrl: './book-list-component.scss'
+  templateUrl: './my-books.html',
+  styleUrl: './my-books.scss'
 })
-export class BookListComponent implements OnInit {
+export class MyBooks implements OnInit{
   protected page: number = 0;
   protected size: number = 10;
   protected bookResponse: PageResponseBookResponse | undefined | null;
-  protected message: string = '';
-  protected level: MessageLevel = MessageLevel.SUCCESS;
 
   constructor(
     private apiConfig: ApiConfiguration,
@@ -33,7 +32,7 @@ export class BookListComponent implements OnInit {
   }
 
   private findAllBooks(): void {
-    findAllBooks(
+    findAllBooksByOwner(
       this.http,
       this.apiConfig.rootUrl,
       {
@@ -80,27 +79,15 @@ export class BookListComponent implements OnInit {
     this.findAllBooks();
   }
 
-  protected borrowBook(book: BookResponse) {
-    this.message = '';
-    borrowBook(
-      this.http,
-      this.apiConfig.rootUrl,
-      {
-        'book-id': book.id as number
-      }
-    ).subscribe({
-      next: (res: HttpResponse<number>) => {
-        console.log('Result:', res);
-        this.level = MessageLevel.SUCCESS;
-        this.message = 'Book successfully added to your list';
-      },
-      error: (err: HttpErrorResponse) => {
-        console.log('Error:', err);
-        this.message = err.error.error
-        this.level = MessageLevel.ERROR;
-      }
-    });
+  protected archiveBook(book: BookResponse): void {
+
   }
 
-  protected readonly MessageLevel = MessageLevel;
+  protected shareBook(book: BookResponse): void {
+
+  }
+
+  protected editBook(book: BookResponse): void {
+
+  }
 }
