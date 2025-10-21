@@ -4,10 +4,13 @@ import {ApiConfiguration} from '../../../../services/api-configuration';
 import {findAllBooks} from '../../../../services/functions';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {PageResponseBookResponse} from '../../../../services/models/page-response-book-response';
+import {BookCard} from '../book-card/book-card';
 
 @Component({
   selector: 'app-book-list-component',
-  imports: [],
+  imports: [
+    BookCard
+  ],
   templateUrl: './book-list-component.html',
   styleUrl: './book-list-component.scss'
 })

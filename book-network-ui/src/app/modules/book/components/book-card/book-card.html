@@ -1,0 +1,43 @@
+<div class="card" style="width: 20rem;">
+  <img [src]="bookCover" class="card-img-top" alt="..." height="200px" />
+  <div class="card-body overflow-auto">
+    <!-- title -->
+    <h5 class="card-title fs-6 text-nowrap fw-bold mb-1">
+      <i class="fa-solid fa-book"></i>&nbsp;{{book.title}}
+    </h5>
+    <!-- sub title -->
+    <h5 class="card-subtitle fs-6 text-secondary mb-1">
+      <i class="fa-solid fa-user-check"></i>&nbsp;{{book.authorName}}
+    </h5>
+    <!-- isbn -->
+    <h6 class="card-subtitle fs-6 text-secondary mb-1">
+      <i class="fa-solid fa-code"></i>&nbsp;{{book.isbn}}
+    </h6>
+    <!-- owner -->
+    <h6 class="card-subtitle fs-6 text-secondary">
+      <i class="fa-solid fa-user"></i>&nbsp;{{book.owner}}
+    </h6>
+    <hr />
+    <p class="card-text">{{book.synopsis}}</p>
+  </div>
+  <!-- card footer -->
+  <div class="card-footer d-flex gap-2 justify-content-between">
+    <div class="d-flex gap-2">
+      5 stars
+    </div>
+
+    @if (!manage) {
+      <div class="d-flex gap-2">
+        <i class="fas fa-circle-info text-primary" (click)="onShowDetails()"></i>
+        <i class="fas fa-list-check text-primary" (click)="onBorrow()"></i>
+        <i class="fas fa-heart text-danger" (click)="onAddWaitingList()"></i>
+      </div>
+    } @else {
+      <div class="d-flex gap-2">
+        <i class="fas fa-edit text-success" (click)="onEdit()"></i>
+        <i class="fas fa-share-nodes text-primary" (click)="onShare()"></i>
+        <i class="fas fa-archive text-danger" (click)="onArchive()"></i>
+      </div>
+    }
+  </div>
+</div>

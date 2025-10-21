@@ -4,6 +4,6 @@
 
 <div class="d-flex justify-content-start gap-2 flex-wrap">
   @for (book of bookResponse?.content; track book.id) {
-    <span>{{book.title}}</span>
+    <app-book-card [book]="book" />
   }
 </div>
