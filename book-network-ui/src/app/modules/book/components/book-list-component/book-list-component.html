@@ -7,3 +7,68 @@
     <app-book-card [book]="book" />
   }
 </div>
+
+<!-- pagination -->
+<div class="d-flex justify-content-center mt-3">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a
+          class="page-link"
+          [class.disabled]="page == 0"
+          href="javascript:void(0)"
+          aria-label="First"
+          (click)="onClickGoToFirstPage()"
+        >
+          <i class="fa-solid fa-angles-left"></i>
+        </a>
+      </li>
+      <li class="page-item">
+        <a
+          class="page-link"
+          [class.disabled]="page === 0"
+          href="javascript:void(0)"
+          aria-label="Previous"
+          (click)="onClickGoToPreviousPage()"
+        >
+          <i class="fa-solid fa-angle-left"></i>
+        </a>
+      </li>
+      @for (_ of [].constructor(bookResponse?.totalPages); let pageIndex = $index; track $index) {
+        <li>
+          <a
+            class="page-link"
+            [class.active]="page === pageIndex"
+            href="javascript:void(0)"
+            aria-label="Previous"
+            (click)="onClickGoToPage(pageIndex)"
+          >
+            {{ pageIndex + 1 }}
+          </a>
+        </li>
+      }
+      <li class="page-item">
+        <a
+          class="page-link"
+          [class.disabled]="isLastPage"
+          href="javascript:void(0)"
+          aria-label="Next"
+          (click)="onClickGoToNextPage()"
+        >
+          <i class="fa-solid fa-angle-right"></i>
+        </a>
+      </li>
+      <li class="page-item">
+        <a
+          class="page-link"
+          [class.disabled]="isLastPage"
+          href="javascript:void(0)"
+          aria-label="Last"
+          (click)="onClickGoToLastPage()"
+        >
+          <i class="fa-solid fa-angles-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
