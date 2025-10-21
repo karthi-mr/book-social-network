@@ -4,6 +4,12 @@ import {MainComponent} from './components/main-component/main-component';
 export const bookRoutes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    children: [
+      {
+        path: 'my-books',
+        component: MainComponent
+      }
+    ]
   }
 ];
