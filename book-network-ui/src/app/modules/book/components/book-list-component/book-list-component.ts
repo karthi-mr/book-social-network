@@ -1,10 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiConfiguration} from '../../../../services/api-configuration';
-import {findAllBooks} from '../../../../services/functions';
+import {borrowBook, findAllBooks} from '../../../../services/functions';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {PageResponseBookResponse} from '../../../../services/models/page-response-book-response';
 import {BookCard} from '../book-card/book-card';
+import {BookResponse} from '../../../../services/models/book-response';
+
+export enum MessageLevel {
+  SUCCESS,
+  ERROR
+}
 
 @Component({
   selector: 'app-book-list-component',
@@ -18,6 +24,8 @@ export class BookListComponent implements OnInit {
   protected page: number = 0;
   protected size: number = 10;
   protected bookResponse: PageResponseBookResponse | undefined | null;
+  protected message: string = '';
+  protected level: MessageLevel = MessageLevel.SUCCESS;
 
   constructor(
     private router: Router,
@@ -77,4 +85,28 @@ export class BookListComponent implements OnInit {
     this.page = this.bookResponse?.totalPages as number - 1;
     this.findAllBooks();
   }
+
+  protected borrowBook(book: BookResponse) {
+    this.message = '';
+    borrowBook(
+      this.http,
+      this.apiConfig.rootUrl,
+      {
+        'book-id': book.id as number
+      }
+    ).subscribe({
+      next: (res: HttpResponse<number>) => {
+        console.log('Result:', res);
+        this.level = MessageLevel.SUCCESS;
+        this.message = 'Book successfully added to your list';
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log('Error:', err);
+        this.message = err.error.error
+        this.level = MessageLevel.ERROR;
+      }
+    });
+  }
+
+  protected readonly MessageLevel = MessageLevel;
 }

@@ -1,10 +1,23 @@
 <h3>Books list</h3>
 
+@if (message) {
+  <div
+    class="alert"
+    [class.alert-success]="level === MessageLevel.SUCCESS"
+    [class.alert-danger]="level === MessageLevel.ERROR"
+  >
+  <span class="fw-bold">{{ message }}</span>
+  </div>
+}
+
 <hr />
 
 <div class="d-flex justify-content-start gap-2 flex-wrap">
   @for (book of bookResponse?.content; track book.id) {
-    <app-book-card [book]="book" />
+    <app-book-card
+      [book]="book"
+      (borrow)="borrowBook($event)"
+    />
   }
 </div>
 
