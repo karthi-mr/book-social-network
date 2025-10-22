@@ -4,7 +4,7 @@ import {PageResponseBookResponse} from '../../../../services/models/page-respons
 import {ApiConfiguration} from '../../../../services/api-configuration';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {findAllBooksByOwner} from '../../../../services/functions';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {BookResponse} from '../../../../services/models/book-response';
 
 @Component({
@@ -23,7 +23,8 @@ export class MyBooks implements OnInit{
 
   constructor(
     private apiConfig: ApiConfiguration,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
   }
 
@@ -88,6 +89,6 @@ export class MyBooks implements OnInit{
   }
 
   protected editBook(book: BookResponse): void {
-
+    this.router.navigate(['books', 'manage', book.id]).then();
   }
 }
