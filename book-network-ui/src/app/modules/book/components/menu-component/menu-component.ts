@@ -13,6 +13,7 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 export class MenuComponent {
 
   protected onLogout(): void {
-
+    localStorage.removeItem('token');
+    window.location.reload();
   }
 }

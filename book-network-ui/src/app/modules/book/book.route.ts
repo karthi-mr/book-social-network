@@ -5,11 +5,14 @@ import {MyBooks} from './components/my-books/my-books';
 import {ManageBook} from './components/manage-book/manage-book';
 import {BorrowedBookList} from './components/borrowed-book-list/borrowed-book-list';
 import {ReturnBooks} from './components/return-books/return-books';
+import {authGuard} from '../../services/guard/auth-guard';
 
 export const bookRoutes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
