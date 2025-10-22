@@ -3,7 +3,7 @@ import {BookCard} from '../book-card/book-card';
 import {PageResponseBookResponse} from '../../../../services/models/page-response-book-response';
 import {ApiConfiguration} from '../../../../services/api-configuration';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {findAllBooksByOwner} from '../../../../services/functions';
+import {findAllBooksByOwner, updateArchivedStatus, updateShareableStatus} from '../../../../services/functions';
 import {Router, RouterLink} from '@angular/router';
 import {BookResponse} from '../../../../services/models/book-response';
 
@@ -81,11 +81,31 @@ export class MyBooks implements OnInit{
   }
 
   protected archiveBook(book: BookResponse): void {
-
+    updateArchivedStatus(
+      this.http,
+      this.apiConfig.rootUrl,
+      {
+        'book-id': book.id!
+      }
+    ).subscribe({
+      next: () => {
+        book.archived = !book.archived;
+      }
+    });
   }
 
   protected shareBook(book: BookResponse): void {
-
+    updateShareableStatus(
+      this.http,
+      this.apiConfig.rootUrl,
+      {
+        'book-id': book.id!
+      }
+    ).subscribe({
+      next: () => {
+        book.shareable = !book.shareable;
+      }
+    });
   }
 
   protected editBook(book: BookResponse): void {

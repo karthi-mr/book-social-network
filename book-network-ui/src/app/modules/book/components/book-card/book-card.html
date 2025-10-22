@@ -1,4 +1,9 @@
-<div class="card" style="width: 20rem;">
+<div
+  class="card border-2"
+  style="width: 20rem;"
+  [class.border-success]="book.shareable"
+  [class.border-warning]="book.archived"
+>
   <img [src]="bookCover" class="card-img-top" alt="..." height="200px" />
   <div class="card-body overflow-auto">
     <!-- title -->
