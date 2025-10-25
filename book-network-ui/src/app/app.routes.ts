@@ -6,6 +6,9 @@ import {authGuard} from './services/guard/auth-guard';
 
 export const routes: Routes = [
   {
+    path: '', pathMatch: 'full', redirectTo: '/books'
+  },
+  {
     path: 'login', component: Login
   },
   {
