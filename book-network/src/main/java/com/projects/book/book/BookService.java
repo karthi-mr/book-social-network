@@ -202,7 +202,7 @@ class BookService {
                     "archived or not shareable");
         }
 
-        if (Objects.equals(book.getOwner().getId(), user.getId())) {
+        if (!Objects.equals(book.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You cannot return your own book");
         }
 

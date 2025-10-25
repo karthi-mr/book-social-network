@@ -1,0 +1,12 @@
+i {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+div {
+  &.card {
+    max-height: 450px;
+    min-height: 450px;
+  }
+}
